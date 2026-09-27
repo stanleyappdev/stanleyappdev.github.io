@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Limits</title>
+<meta name="description" content="AI Limits shows your AI services' usage limits and reset times in one place. Help and contact.">
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f1f2f4;
+  --text: #0c0e11;
+  --text2: rgba(12, 14, 18, 0.62);
+  --surface: #ffffff;
+  --line: rgba(12, 14, 18, 0.09);
+  --accent: #0b8b9d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --text: #f3f4f6;
+    --text2: rgba(236, 239, 243, 0.62);
+    --surface: #131417;
+    --line: rgba(255, 255, 255, 0.08);
+    --accent: #78dbe6;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+
+h1 { font-size: 34px; line-height: 1.2; margin: 0 0 8px; }
+h2 { font-size: 22px; margin: 36px 0 8px; }
+h3 { font-size: 17px; margin: 24px 0 4px; }
+p, ul { margin: 0 0 14px; }
+ul { padding-left: 22px; }
+li { margin-bottom: 8px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.lead { font-size: 20px; color: var(--text2); margin-bottom: 24px; }
+.date, .back { color: var(--text2); font-size: 15px; }
+.back { margin-bottom: 20px; }
+.summary {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 20px 4px;
+  margin: 24px 0;
+}
+.links { margin-top: 32px; }
+.note { color: var(--text2); font-size: 14px; margin-top: 40px; }
+</style>
+</head>
+<body>
+<main>
+<h1>AI Limits</h1>
+<p class="lead">All your AI usage limits and reset times in one place, on Android and iPhone.</p>
+
+<p>AI Limits shows how much of each limit you have used on the AI services you pay for, when each limit resets, and when you're likely to hit it at your current pace. It alerts you before you run out, and shows your usage in widgets and a live countdown.</p>
+<p>It works with Claude, ChatGPT and Codex, Cursor, GitHub Copilot, Grok, Gemini, GLM Coding Plan, MiniMax and OpenCode Go.</p>
+
+<h2>Questions</h2>
+
+<h3>How does signing in work?</h3>
+<p>You sign in on each service's own page, shown inside the app, the same way you would in a browser. AI Limits never sees your password. It keeps the service's session on your phone and uses it only to read your plan, usage and reset times.</p>
+
+<h3>Why doesn't Google sign-in or a passkey work?</h3>
+<p>Many services block these inside apps. Sign in with your email and password or the code the service sends you instead. The sign-in screen for each service says which methods work.</p>
+
+<h3>A service says "Sign-in expired". What now?</h3>
+<p>Services end sessions from time to time. Open the account in the app and sign in again.</p>
+
+<h3>The numbers look wrong or stopped updating.</h3>
+<p>Pull down to refresh. Services sometimes change their sites, which can stop an account from updating until the app is updated. Let us know which service it is.</p>
+
+<h3>How do I cancel AI Limits Pro?</h3>
+<p>Subscriptions are managed by the store you bought from. On Android: Google Play &gt; your profile &gt; Payments &amp; subscriptions &gt; Subscriptions. On iPhone: Settings &gt; your name &gt; Subscriptions.</p>
+
+<h3>How do I delete my data?</h3>
+<p>Disconnect an account to delete its session and history, or use Settings &gt; Data Storage &gt; Delete all data. Everything is stored on your phone, so uninstalling the app removes it too.</p>
+
+<h2>Contact</h2>
+<p><a href="mailto:stanley.appdev@gmail.com">stanley.appdev@gmail.com</a></p>
+
+<p class="links"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></p>
+
+<p class="note">AI Limits is not affiliated with Anthropic, OpenAI, Anysphere, xAI, Google, GitHub, Z.ai, MiniMax or Anomaly. Service names are used only to identify them.</p>
+</main>
+</body>
+</html>
