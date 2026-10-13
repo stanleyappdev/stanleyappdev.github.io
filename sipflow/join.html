@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join me on SipFlow</title>
+<meta property="og:title" content="Who drinks more water today? 💧">
+<meta property="og:description" content="Join my battle on SipFlow.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header><img src="icon.png" alt=""><a href="./">SipFlow</a></header>
+<div class="card">
+<h1>Who drinks more water today?</h1>
+<p>Your friend invited you to a water battle on SipFlow.</p>
+<p id="code-line" hidden>Your code: <b id="code" style="font-size:1.6em;letter-spacing:.15em;font-family:ui-monospace,monospace"></b></p>
+<p><a id="open" class="button" href="sipflow://join">Open in SipFlow</a></p>
+<h2>Don’t have SipFlow yet?</h2>
+<p>Battle with friends is in beta on iPhone. <a href="https://testflight.apple.com/join/W3JftpbE">Join the SipFlow beta on TestFlight</a>, install it, tap the two people at the top and enter the code above.</p>
+</div>
+<nav><a href="./">Home</a><a href="privacy.html">Privacy Policy</a></nav>
+</main>
+<script>
+  const code = (new URLSearchParams(location.search).get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  if (code) {
+    document.getElementById('code').textContent = code;
+    document.getElementById('code-line').hidden = false;
+    document.getElementById('open').href = 'sipflow://join?c=' + code;
+  }
+</script>
+</body>
+</html>
