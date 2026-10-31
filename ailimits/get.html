@@ -12,7 +12,7 @@
 // the App Store as a campaign link (ct), which App Store Connect › App Analytics shows per campaign.
 (function () {
   // App Store Connect › App Analytics › Acquisition › Campaigns › Generate Campaign Link shows this as "pt=".
-  var APPLE_PROVIDER_TOKEN = "";
+  var APPLE_PROVIDER_TOKEN = "129568531";
   var q = new URLSearchParams(location.search);
   var tag = function (v) { return (v || "").toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24); };
   var src = tag(q.get("src")), c = tag(q.get("c"));
