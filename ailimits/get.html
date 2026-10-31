@@ -6,12 +6,32 @@
 <title>Get AI Limits</title>
 <meta name="description" content="Get AI Limits on the App Store or Google Play.">
 <script>
-// Ads link here: send each phone straight to its own store.
+// Ads and social posts link here: send each phone straight to its own store.
+// get.html?src=threads&c=launch tags the visit, so the stores can tell which network it came from:
+// Google Play gets it as utm_source/utm_campaign (the app also passes it along with a purchase),
+// the App Store as a campaign link (ct), which App Store Connect › App Analytics shows per campaign.
 (function () {
+  // App Store Connect › App Analytics › Acquisition › Campaigns › Generate Campaign Link shows this as "pt=".
+  var APPLE_PROVIDER_TOKEN = "";
+  var q = new URLSearchParams(location.search);
+  var tag = function (v) { return (v || "").toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24); };
+  var src = tag(q.get("src")), c = tag(q.get("c"));
+  var play = "https://play.google.com/store/apps/details?id=com.stas.ailimits";
+  var apple = "https://apps.apple.com/app/id6819589802";
+  if (src) {
+    var ref = "utm_source=" + src + "&utm_medium=social" + (c ? "&utm_campaign=" + c : "");
+    play += "&referrer=" + encodeURIComponent(ref);
+    if (APPLE_PROVIDER_TOKEN) apple = "https://apps.apple.com/app/apple-store/id6819589802?pt=" + APPLE_PROVIDER_TOKEN + "&ct=" + (c ? src + "-" + c : src) + "&mt=8";
+  }
   var ua = navigator.userAgent || "";
   var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && "ontouchend" in document);
-  if (ios) location.replace("https://apps.apple.com/app/id6819589802");
-  else if (/Android/.test(ua)) location.replace("https://play.google.com/store/apps/details?id=com.stas.ailimits");
+  if (ios) location.replace(apple);
+  else if (/Android/.test(ua)) location.replace(play);
+  else document.addEventListener("DOMContentLoaded", function () {
+    // On a computer the buttons carry the same tags.
+    document.querySelectorAll('a[href^="https://apps.apple.com"]').forEach(function (a) { a.href = apple; });
+    document.querySelectorAll('a[href^="https://play.google.com"]').forEach(function (a) { a.href = play; });
+  });
 })();
 </script>
 <style>
