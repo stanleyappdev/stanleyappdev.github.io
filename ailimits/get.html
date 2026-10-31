@@ -96,6 +96,9 @@ a { color: inherit; }
 .top nav { display: flex; gap: 22px; font-size: 15px; }
 .top nav a { color: var(--text2); text-decoration: none; transition: color .2s; }
 .top nav a:hover { color: var(--text); }
+.top nav { align-items: center; }
+.top nav a.cta { padding: 9px 18px; border-radius: 999px; background: var(--cyan); color: #04181b; font-weight: 700; box-shadow: 0 6px 22px -6px rgba(120,219,230,.7); transition: transform .2s var(--ease), box-shadow .2s; }
+.top nav a.cta:hover { color: #04181b; transform: translateY(-1px); box-shadow: 0 10px 28px -6px rgba(120,219,230,.9); }
 
 /* Hero */
 .hero { display: grid; grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr); gap: 32px; align-items: center; padding: 48px 0 44px; }
@@ -106,12 +109,20 @@ a { color: inherit; }
 
 h1 { margin: 20px 0 18px; font-size: clamp(40px, 5.2vw, 66px); line-height: 1.02; letter-spacing: -.035em; font-weight: 800; }
 h1 .hit { background: linear-gradient(92deg, var(--cyan) 0%, var(--amber) 55%, var(--orange) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; white-space: nowrap; }
-.lead { margin: 0 0 30px; max-width: 520px; font-size: 19px; color: var(--text2); }
+.lead { margin: 0 0 26px; max-width: 520px; font-size: 19px; color: var(--text2); }
 
+.get { position: relative; width: fit-content; max-width: 100%; padding: 18px 18px 18px; border-radius: 24px; background: linear-gradient(160deg, rgba(120,219,230,.12), rgba(20,22,26,.85) 45%, rgba(255,155,69,.10)); box-shadow: 0 0 0 1px rgba(120,219,230,.28), 0 24px 60px -20px rgba(47,182,199,.45); scroll-margin-top: 30px; }
+.get::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px; background: conic-gradient(from var(--ang, 0deg), rgba(120,219,230,.9), rgba(255,194,74,.7), rgba(255,155,69,.8), rgba(120,219,230,.15) 60%, rgba(120,219,230,.9)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 6s linear infinite; pointer-events: none; }
+@property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes spin { to { --ang: 360deg; } }
+.get-title { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font-size: 20px; font-weight: 750; letter-spacing: -.01em; }
+.get-title svg { color: var(--cyan); }
+.get-title span { font-size: 14px; font-weight: 500; color: var(--text2); }
 .stores { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.badge { display: block; height: 56px; border-radius: 12px; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.badge { display: block; height: 60px; border-radius: 12px; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
 .badge svg { display: block; height: 100%; width: auto; }
-.badge:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.18); }
+.badge { box-shadow: 0 8px 24px -8px rgba(0,0,0,.8); }
+.badge:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 34px -8px rgba(120,219,230,.45), 0 0 0 2px rgba(120,219,230,.7); }
 .badge:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 
 .paid { display: flex; gap: 10px; align-items: flex-start; margin: 22px 0 0; max-width: 520px; font-size: 14.5px; color: var(--text2); line-height: 1.5; }
@@ -196,6 +207,7 @@ footer a:hover { color: var(--text); }
   .hero { grid-template-columns: 1fr; padding-top: 36px; min-height: 0; }
   .copy { text-align: center; display: flex; flex-direction: column; align-items: center; }
   .stores { justify-content: center; }
+  .get-title { justify-content: center; }
   .paid { text-align: left; }
   .stage { max-width: 640px; width: 100%; margin: 0 auto; }
   .works { text-align: center; }
@@ -204,7 +216,7 @@ footer a:hover { color: var(--text); }
 }
 @media (max-width: 620px) {
   .wrap { padding: 0 18px; }
-  .top nav a:not(:last-child) { display: none; }
+  .top nav a:not(.cta) { display: none; }
   .scan { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -219,7 +231,7 @@ footer a:hover { color: var(--text); }
 <div class="wrap">
   <header class="top in">
     <a class="brand" href="./"><img src="get/icon.png" alt="" width="36" height="36">AI Limits</a>
-    <nav><a href="./">Help</a><a href="privacy.html">Privacy</a></nav>
+    <nav><a href="./">Help</a><a href="privacy.html">Privacy</a><a class="cta" href="#download">Download</a></nav>
   </header>
 
   <main>
@@ -229,7 +241,9 @@ footer a:hover { color: var(--text); }
         <h1 class="in" style="--d:2">See every AI limit before you <span class="hit">hit&nbsp;it.</span></h1>
         <p class="lead in" style="--d:3">How much you've used on Claude, ChatGPT, Codex, Cursor and more, when each limit resets, and when you'll run out at your current pace. In one app, with widgets and alerts.</p>
 
-        <div class="stores in" style="--d:4">
+        <div class="get in" id="download" style="--d:4">
+        <p class="get-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download free <span>iPhone, iPad and Android</span></p>
+        <div class="stores">
           <a class="badge" href="https://apps.apple.com/app/id6819589802" aria-label="Download on the App Store">
             <svg viewBox="0 0 168 56" role="img" aria-hidden="true">
               <rect x=".5" y=".5" width="167" height="55" rx="11.5" fill="#000" stroke="#a6a6a6"/>
@@ -251,6 +265,7 @@ footer a:hover { color: var(--text); }
               <text x="53" y="43" fill="#fff" font-family="'Product Sans', Roboto, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="500" letter-spacing="-.2">Google Play</text>
             </svg>
           </a>
+        </div>
         </div>
 
         <p class="paid in" style="--d:5">
