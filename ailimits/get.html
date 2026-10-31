@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Get AI Limits</title>
-<meta name="description" content="Get AI Limits on the App Store or Google Play.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get AI Limits for iPhone, iPad and Android</title>
+<meta name="description" content="AI Limits shows how much of your Claude, ChatGPT, Codex, Cursor and other AI limits you've used, when each one resets, and when you'll run out. Get it on the App Store or Google Play.">
+<meta name="theme-color" content="#050607">
+<meta property="og:title" content="AI Limits: see every AI limit before you hit it">
+<meta property="og:description" content="Usage, reset times and a forecast for Claude, ChatGPT, Codex, Cursor and more. iPhone, iPad and Android.">
+<meta property="og:image" content="https://stanleyappdev.github.io/ailimits/get/icon.png">
+<link rel="icon" type="image/png" href="get/favicon.png">
+<link rel="apple-touch-icon" href="get/apple-touch-icon.png">
 <script>
 // Ads and social posts link here: send each phone straight to its own store.
 // get.html?src=threads&c=launch tags the visit, so the stores can tell which network it came from:
@@ -36,68 +42,362 @@
 </script>
 <style>
 :root {
-  color-scheme: light dark;
-  --bg: #f1f2f4;
-  --text: #0c0e11;
-  --text2: rgba(12, 14, 18, 0.62);
-  --button: #0c0e11;
-  --button-text: #ffffff;
-  --accent: #0b8b9d;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --text: #f3f4f6;
-    --text2: rgba(236, 239, 243, 0.62);
-    --button: #f3f4f6;
-    --button-text: #000000;
-    --accent: #78dbe6;
-  }
+  color-scheme: dark;
+  --bg: #050607;
+  --text: #f3f4f6;
+  --text2: rgba(236, 239, 243, 0.64);
+  --text3: rgba(236, 239, 243, 0.42);
+  --line: rgba(255, 255, 255, 0.09);
+  --card: rgba(22, 24, 28, 0.72);
+  --cyan: #78dbe6;
+  --cyan-deep: #2fb6c7;
+  --orange: #ff9b45;
+  --amber: #ffc24a;
+  --ease: cubic-bezier(.2, .8, .2, 1);
 }
 
 * { box-sizing: border-box; }
-
+html { background: var(--bg); }
 body {
   margin: 0;
-  background: var(--bg);
+  min-height: 100vh;
   color: var(--text);
-  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
+a { color: inherit; }
 
-main {
-  max-width: 520px;
-  margin: 0 auto;
-  padding: 72px 20px 64px;
-  text-align: center;
+/* Moving light behind everything */
+.sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.sky i { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; will-change: transform; }
+.sky .a { width: 46vw; height: 46vw; left: 46%; top: -12%; background: radial-gradient(circle, rgba(47,182,199,.55), transparent 65%); animation: drift-a 22s ease-in-out infinite alternate; }
+.sky .b { width: 38vw; height: 38vw; left: 70%; top: 40%; background: radial-gradient(circle, rgba(255,140,60,.38), transparent 65%); animation: drift-b 26s ease-in-out infinite alternate; }
+.sky .c { width: 34vw; height: 34vw; left: -8%; top: 55%; background: radial-gradient(circle, rgba(70,110,255,.22), transparent 65%); animation: drift-c 30s ease-in-out infinite alternate; }
+.sky::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 35%, #000 20%, transparent 75%);
+          mask-image: radial-gradient(ellipse 70% 60% at 60% 35%, #000 20%, transparent 75%);
 }
+@keyframes drift-a { to { transform: translate(-12vw, 10vh) scale(1.15); } }
+@keyframes drift-b { to { transform: translate(-16vw, -14vh) scale(.9); } }
+@keyframes drift-c { to { transform: translate(14vw, -18vh) scale(1.2); } }
 
-h1 { font-size: 34px; line-height: 1.2; margin: 0 0 8px; }
-.lead { font-size: 20px; color: var(--text2); margin: 0 0 32px; }
-.stores { display: flex; flex-direction: column; gap: 12px; }
-.stores a {
-  display: block;
-  padding: 16px 20px;
-  border-radius: 14px;
-  background: var(--button);
-  color: var(--button-text);
-  font-weight: 600;
-  text-decoration: none;
+.wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+/* Top bar */
+.top { display: flex; align-items: center; justify-content: space-between; padding: 26px 0 0; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 18px; letter-spacing: -.01em; text-decoration: none; }
+.brand img { width: 36px; height: 36px; border-radius: 9px; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 6px 18px rgba(47,182,199,.25); }
+.top nav { display: flex; gap: 22px; font-size: 15px; }
+.top nav a { color: var(--text2); text-decoration: none; transition: color .2s; }
+.top nav a:hover { color: var(--text); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr); gap: 32px; align-items: center; padding: 48px 0 44px; }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 8px; border-radius: 999px; background: rgba(120,219,230,.08); border: 1px solid rgba(120,219,230,.22); color: var(--cyan); font-size: 13px; font-weight: 600; letter-spacing: .01em; }
+.eyebrow b { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 0 rgba(120,219,230,.6); animation: ping 2.2s var(--ease) infinite; }
+@keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(120,219,230,0); } 100% { box-shadow: 0 0 0 0 rgba(120,219,230,0); } }
+
+h1 { margin: 20px 0 18px; font-size: clamp(40px, 5.2vw, 66px); line-height: 1.02; letter-spacing: -.035em; font-weight: 800; }
+h1 .hit { background: linear-gradient(92deg, var(--cyan) 0%, var(--amber) 55%, var(--orange) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; white-space: nowrap; }
+.lead { margin: 0 0 30px; max-width: 520px; font-size: 19px; color: var(--text2); }
+
+.stores { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.badge { display: block; height: 56px; border-radius: 12px; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.badge svg { display: block; height: 100%; width: auto; }
+.badge:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.18); }
+.badge:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+.paid { display: flex; gap: 10px; align-items: flex-start; margin: 22px 0 0; max-width: 520px; font-size: 14.5px; color: var(--text2); line-height: 1.5; }
+.paid svg { flex: none; margin-top: 2px; color: var(--cyan); }
+.paid strong { color: var(--text); font-weight: 600; }
+
+.scan { display: flex; align-items: center; gap: 16px; margin-top: 26px; padding: 12px 18px 12px 12px; width: fit-content; border-radius: 18px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.scan[hidden] { display: none; }
+.scan .qr { width: 84px; height: 84px; padding: 6px; border-radius: 10px; background: #fff; flex: none; }
+.scan .qr svg { display: block; width: 100%; height: 100%; }
+.scan p { margin: 0; font-size: 14px; color: var(--text2); line-height: 1.45; }
+.scan p strong { display: block; color: var(--text); font-size: 15px; margin-bottom: 2px; }
+
+/* Phones */
+.stage { position: relative; height: calc(620px * var(--s, 1)); perspective: 1400px; }
+.fit { position: absolute; left: 50%; top: 0; width: 580px; height: 620px; margin-left: -290px; transform: scale(var(--s, 1)); transform-origin: top center; }
+.rig { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .6s var(--ease); }
+.phone { position: absolute; width: 262px; aspect-ratio: 600 / 1304; border-radius: 44px; padding: 9px; background: linear-gradient(145deg, #3a3d43, #121316 40%, #26282d); box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 40px 80px -20px rgba(0,0,0,.85), 0 18px 40px -18px rgba(0,0,0,.7); }
+.phone img { display: block; width: 100%; height: 100%; border-radius: 36px; object-fit: cover; background: #000; }
+.phone::after { content: ""; position: absolute; inset: 9px; border-radius: 36px; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,.10), transparent 32%); }
+.p-main { left: 50%; top: 40px; margin-left: -131px; z-index: 3; animation: float 7s ease-in-out infinite; }
+.p-left { left: 50%; top: 96px; margin-left: -282px; width: 222px; border-radius: 40px; z-index: 2; transform: rotate(-9deg); opacity: .92; animation: float-l 8s ease-in-out infinite; }
+.p-right { left: 50%; top: 104px; margin-left: 62px; width: 222px; border-radius: 40px; z-index: 1; transform: rotate(8deg); opacity: .92; animation: float-r 9s ease-in-out infinite; }
+.p-left img, .p-right img, .p-left::after, .p-right::after { border-radius: 32px; }
+@keyframes float { 50% { transform: translateY(-12px); } }
+@keyframes float-l { 0%, 100% { transform: rotate(-9deg) translateY(0); } 50% { transform: rotate(-8deg) translateY(10px); } }
+@keyframes float-r { 0%, 100% { transform: rotate(8deg) translateY(0); } 50% { transform: rotate(7deg) translateY(-10px); } }
+.glow { position: absolute; left: 50%; top: 52%; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(120,219,230,.22), transparent 62%); filter: blur(20px); z-index: 0; }
+
+/* Floating cards on the phones */
+.chip { position: absolute; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 12px 16px 12px 12px; border-radius: 18px; background: rgba(20,22,26,.82); border: 1px solid rgba(255,255,255,.1); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); box-shadow: 0 20px 40px -12px rgba(0,0,0,.7); font-size: 14px; line-height: 1.3; white-space: nowrap; }
+.chip small { display: block; color: var(--text3); font-size: 12px; font-weight: 500; }
+.chip strong { font-size: 16px; font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.c-gauge { left: -14px; top: 14px; animation: bob 6s ease-in-out infinite; }
+.c-gauge .g { position: relative; width: 70px; height: 70px; }
+.c-gauge .g svg { width: 100%; height: 100%; }
+.c-gauge .g span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.c-gauge .g span i { font-style: normal; font-size: 9px; font-weight: 600; color: var(--text2); margin: 4px 0 0 1px; }
+.c-pace { right: -18px; top: 262px; color: var(--orange); animation: bob 7s ease-in-out -2s infinite; }
+.c-pace .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,155,69,.14); }
+.c-pace strong { color: var(--text); }
+.c-reset { left: 4px; bottom: 30px; animation: bob 8s ease-in-out -4s infinite; }
+.c-reset .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(120,219,230,.12); color: var(--cyan); }
+@keyframes bob { 50% { transform: translateY(-8px); } }
+
+/* Services */
+.works { padding: 6px 0 10px; }
+.works h2 { margin: 0 0 14px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); font-weight: 600; }
+.works ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.works li { display: flex; align-items: center; gap: 9px; padding: 9px 14px 9px 11px; border-radius: 999px; background: rgba(255,255,255,.04); border: 1px solid var(--line); font-size: 14.5px; color: var(--text2); transition: background .2s, color .2s, transform .25s var(--ease); }
+.works li:hover { background: rgba(255,255,255,.08); color: var(--text); transform: translateY(-1px); }
+.works li svg { width: 18px; height: 18px; color: #e9ebee; fill: currentColor; }
+.works li.more { color: var(--text3); }
+
+/* Features */
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 46px 0 34px; }
+.feat { position: relative; padding: 24px 24px 26px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); overflow: hidden; }
+.feat::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(140deg, rgba(120,219,230,.45), transparent 40%, transparent 70%, rgba(255,155,69,.35)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .35s; }
+.feat:hover::before { opacity: 1; }
+.feat .ic { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 16px; }
+.feat h3 { margin: 0 0 6px; font-size: 19px; letter-spacing: -.01em; }
+.feat p { margin: 0; color: var(--text2); font-size: 15.5px; }
+.i-cyan { background: rgba(120,219,230,.12); color: var(--cyan); }
+.i-amber { background: rgba(255,194,74,.12); color: var(--amber); }
+.i-orange { background: rgba(255,155,69,.13); color: var(--orange); }
+.bars { display: flex; gap: 3px; margin-top: 18px; height: 8px; }
+.bars i { flex: 1; border-radius: 2px; background: rgba(255,255,255,.1); }
+.bars i.on { background: var(--cyan); }
+.bars i.hot { background: var(--orange); }
+
+footer { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: space-between; align-items: center; padding: 26px 0 40px; border-top: 1px solid var(--line); color: var(--text3); font-size: 14px; }
+footer nav { display: flex; gap: 20px; }
+footer a { text-decoration: none; color: var(--text2); }
+footer a:hover { color: var(--text); }
+
+/* Entrance */
+.in { opacity: 0; transform: translateY(18px); animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--d, 0) * 90ms + 80ms); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.stage.in { transform: translateY(30px) scale(.97); animation-duration: 1.2s; }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; padding-top: 36px; min-height: 0; }
+  .copy { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .stores { justify-content: center; }
+  .paid { text-align: left; }
+  .stage { max-width: 640px; width: 100%; margin: 0 auto; }
+  .works { text-align: center; }
+  .works ul { justify-content: center; }
+  .features { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
 }
-.more { margin-top: 32px; font-size: 15px; }
-.more a { color: var(--accent); text-decoration: none; }
+@media (max-width: 620px) {
+  .wrap { padding: 0 18px; }
+  .top nav a:not(:last-child) { display: none; }
+  .scan { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .in { opacity: 1; transform: none; }
+}
 </style>
 </head>
 <body>
-<main>
-<h1>AI Limits</h1>
-<p class="lead">All your AI usage limits and reset times in one place.</p>
-<div class="stores">
-<a href="https://apps.apple.com/app/id6819589802">Download on the App Store</a>
-<a href="https://play.google.com/store/apps/details?id=com.stas.ailimits">Get it on Google Play</a>
+<div class="sky" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+
+<div class="wrap">
+  <header class="top in">
+    <a class="brand" href="./"><img src="get/icon.png" alt="" width="36" height="36">AI Limits</a>
+    <nav><a href="./">Help</a><a href="privacy.html">Privacy</a></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="copy">
+        <span class="eyebrow in" style="--d:1"><b></b>iPhone · iPad · Android</span>
+        <h1 class="in" style="--d:2">See every AI limit before you <span class="hit">hit&nbsp;it.</span></h1>
+        <p class="lead in" style="--d:3">How much you've used on Claude, ChatGPT, Codex, Cursor and more, when each limit resets, and when you'll run out at your current pace. In one app, with widgets and alerts.</p>
+
+        <div class="stores in" style="--d:4">
+          <a class="badge" href="https://apps.apple.com/app/id6819589802" aria-label="Download on the App Store">
+            <svg viewBox="0 0 168 56" role="img" aria-hidden="true">
+              <rect x=".5" y=".5" width="167" height="55" rx="11.5" fill="#000" stroke="#a6a6a6"/>
+              <g transform="translate(13 11.5) scale(1.38)" fill="#fff"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></g>
+              <text x="50" y="23" fill="#fff" font-family="-apple-system, 'SF Pro Text', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="500">Download on the</text>
+              <text x="49" y="43" fill="#fff" font-family="-apple-system, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" letter-spacing="-.4">App Store</text>
+            </svg>
+          </a>
+          <a class="badge" href="https://play.google.com/store/apps/details?id=com.stas.ailimits" aria-label="Get it on Google Play">
+            <svg viewBox="0 0 189 56" role="img" aria-hidden="true">
+              <rect x=".5" y=".5" width="188" height="55" rx="11.5" fill="#000" stroke="#a6a6a6"/>
+              <g transform="translate(13 12) scale(1.33)">
+                <path fill="#00d7fe" d="M1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924z"/>
+                <path fill="#00f076" d="M13.544 10.989l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973z"/>
+                <path fill="#ff3a44" d="M13.544 13.056l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/>
+                <path fill="#ffd500" d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594z"/>
+              </g>
+              <text x="54" y="22" fill="#fff" font-family="Roboto, 'Product Sans', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="500" letter-spacing=".6">GET IT ON</text>
+              <text x="53" y="43" fill="#fff" font-family="'Product Sans', Roboto, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="500" letter-spacing="-.2">Google Play</text>
+            </svg>
+          </a>
+        </div>
+
+        <p class="paid in" style="--d:5">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.5 3 3 6-6.5"/></svg>
+          <span><strong>Works with paid plans:</strong> Claude Pro/Max, ChatGPT Plus/Pro, Cursor Pro and others. Free accounts don't have usage limits to show.</span>
+        </p>
+
+        <div class="scan in" style="--d:6" hidden>
+          <div class="qr" aria-hidden="true"></div>
+          <p><strong>On a computer?</strong>Point your phone's camera here.<br>It opens the right store for your phone.</p>
+        </div>
+      </div>
+
+      <div class="stage in" style="--d:3" aria-hidden="true">
+        <div class="fit">
+        <div class="glow"></div>
+        <div class="rig">
+          <div class="phone p-left"><img src="get/monitor.webp" alt="" width="600" height="1304"></div>
+          <div class="phone p-right"><img src="get/widgets.webp" alt="" width="600" height="1304"></div>
+          <div class="phone p-main"><img src="get/home.webp" alt="" width="600" height="1304" fetchpriority="high"></div>
+
+          <div class="chip c-gauge">
+            <div class="g"><svg viewBox="0 0 100 100" id="gauge"></svg><span><b id="pct">0</b><i>%</i></span></div>
+            <div><small>Claude · Session</small><strong>Resets in <span id="reset">2h 15m</span></strong></div>
+          </div>
+          <div class="chip c-pace">
+            <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+            <div><small>At this pace</small><strong>Hits the limit in ~1h 17m</strong></div>
+          </div>
+          <div class="chip c-reset">
+            <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/></svg></div>
+            <div><small>Alert</small><strong>ChatGPT is at 90% of its weekly limit</strong></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="works in" style="--d:7">
+      <h2>Works with</h2>
+      <ul>
+        <li title="Claude"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" fill="#D97757" fill-rule="nonzero"></path></svg><span>Claude</span></li>
+        <li title="ChatGPT"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.205 8.658v-2.26c0-.19.072-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.566 0 .167 0 .357-.024.547l-4.71-2.759a.797.797 0 00-.856 0l-5.97 3.473zm10.609 8.8V12.06c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.433.433 0 01.476 0l4.543 2.617c1.309.76 2.189 2.378 2.189 3.948 0 1.808-1.07 3.473-2.76 4.163zM7.802 12.703l-1.95-1.142c-.167-.095-.239-.238-.239-.428V5.899c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.067c-.285.166-.428.404-.428.737v6.898zM12 15.128l-2.795-1.57v-3.33L12 8.658l2.795 1.57v3.33L12 15.128zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472zm-5.637-5.303l-4.544-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.482 4.482 0 014.21 6.327v5.423c0 .333.143.571.428.738l5.947 3.449-1.95 1.118a.432.432 0 01-.476 0zm-.262 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.71c.286.167.571.167.856 0l5.97-3.448v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.523-2.117.523zm5.899 2.83a5.947 5.947 0 005.827-4.756C22.287 18.339 24 15.84 24 13.296c0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.095-1.88.31A5.962 5.962 0 0010.205 0a5.947 5.947 0 00-5.827 4.757C1.713 5.447 0 7.945 0 10.49c0 1.666.713 3.283 1.998 4.448-.119.5-.19 1-.19 1.499 0 3.401 2.759 5.946 5.946 5.946.642 0 1.26-.095 1.88-.309a5.96 5.96 0 004.162 1.713z"></path></svg><span>ChatGPT</span></li>
+        <li title="Cursor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"></path></svg><span>Cursor</span></li>
+        <li title="GitHub Copilot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.245 5.364c1.322 1.36 1.877 3.216 2.11 5.817.622 0 1.2.135 1.592.654l.73.964c.21.278.323.61.323.955v2.62c0 .339-.173.669-.453.868C20.239 19.602 16.157 21.5 12 21.5c-4.6 0-9.205-2.583-11.547-4.258-.28-.2-.452-.53-.453-.868v-2.62c0-.345.113-.679.321-.956l.73-.963c.392-.517.974-.654 1.593-.654l.029-.297c.25-2.446.81-4.213 2.082-5.52 2.461-2.54 5.71-2.851 7.146-2.864h.198c1.436.013 4.685.323 7.146 2.864zm-7.244 4.328c-.284 0-.613.016-.962.05-.123.447-.305.85-.57 1.108-1.05 1.023-2.316 1.18-2.994 1.18-.638 0-1.306-.13-1.851-.464-.516.165-1.012.403-1.044.996a65.882 65.882 0 00-.063 2.884l-.002.48c-.002.563-.005 1.126-.013 1.69.002.326.204.63.51.765 2.482 1.102 4.83 1.657 6.99 1.657 2.156 0 4.504-.555 6.985-1.657a.854.854 0 00.51-.766c.03-1.682.006-3.372-.076-5.053-.031-.596-.528-.83-1.046-.996-.546.333-1.212.464-1.85.464-.677 0-1.942-.157-2.993-1.18-.266-.258-.447-.661-.57-1.108-.32-.032-.64-.049-.96-.05zm-2.525 4.013c.539 0 .976.426.976.95v1.753c0 .525-.437.95-.976.95a.964.964 0 01-.976-.95v-1.752c0-.525.437-.951.976-.951zm5 0c.539 0 .976.426.976.95v1.753c0 .525-.437.95-.976.95a.964.964 0 01-.976-.95v-1.752c0-.525.437-.951.976-.951zM7.635 5.087c-1.05.102-1.935.438-2.385.906-.975 1.037-.765 3.668-.21 4.224.405.394 1.17.657 1.995.657h.09c.649-.013 1.785-.176 2.73-1.11.435-.41.705-1.433.675-2.47-.03-.834-.27-1.52-.63-1.813-.39-.336-1.275-.482-2.265-.394zm6.465.394c-.36.292-.6.98-.63 1.813-.03 1.037.24 2.06.675 2.47.968.957 2.136 1.104 2.776 1.11h.044c.825 0 1.59-.263 1.995-.657.555-.556.765-3.187-.21-4.224-.45-.468-1.335-.804-2.385-.906-.99-.088-1.875.058-2.265.394zM12 7.615c-.24 0-.525.015-.84.044.03.16.045.336.06.526l-.001.159a2.94 2.94 0 01-.014.25c.225-.022.425-.027.612-.028h.366c.187 0 .387.006.612.028-.015-.146-.015-.277-.015-.409.015-.19.03-.365.06-.526a9.29 9.29 0 00-.84-.044z"></path></svg><span>GitHub Copilot</span></li>
+        <li title="Gemini"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M 20.616 10.835 a 14.147 14.147 0 0 1 -4.45 -3.001 14.111 14.111 0 0 1 -3.678 -6.452 .503 .503 0 0 0 -.975 0 14.134 14.134 0 0 1 -3.679 6.452 14.155 14.155 0 0 1 -4.45 3.001 c -.65 .28 -1.318 .505 -2.002 .678 a .502 .502 0 0 0 0 .975 c .684 .172 1.35 .397 2.002 .677 a 14.147 14.147 0 0 1 4.45 3.001 14.112 14.112 0 0 1 3.679 6.453 .502 .502 0 0 0 .975 0 c .172 -.685 .397 -1.351 .677 -2.003 a 14.145 14.145 0 0 1 3.001 -4.45 14.113 14.113 0 0 1 6.453 -3.678 .503 .503 0 0 0 0 -.975 13.245 13.245 0 0 1 -2.003 -.678 z" fill="#3186FF"></path><path d="M 20.616 10.835 a 14.147 14.147 0 0 1 -4.45 -3.001 14.111 14.111 0 0 1 -3.678 -6.452 .503 .503 0 0 0 -.975 0 14.134 14.134 0 0 1 -3.679 6.452 14.155 14.155 0 0 1 -4.45 3.001 c -.65 .28 -1.318 .505 -2.002 .678 a .502 .502 0 0 0 0 .975 c .684 .172 1.35 .397 2.002 .677 a 14.147 14.147 0 0 1 4.45 3.001 14.112 14.112 0 0 1 3.679 6.453 .502 .502 0 0 0 .975 0 c .172 -.685 .397 -1.351 .677 -2.003 a 14.145 14.145 0 0 1 3.001 -4.45 14.113 14.113 0 0 1 6.453 -3.678 .503 .503 0 0 0 0 -.975 13.245 13.245 0 0 1 -2.003 -.678 z" fill="url(#lobe-icons-gemini-0-)"></path><path d="M 20.616 10.835 a 14.147 14.147 0 0 1 -4.45 -3.001 14.111 14.111 0 0 1 -3.678 -6.452 .503 .503 0 0 0 -.975 0 14.134 14.134 0 0 1 -3.679 6.452 14.155 14.155 0 0 1 -4.45 3.001 c -.65 .28 -1.318 .505 -2.002 .678 a .502 .502 0 0 0 0 .975 c .684 .172 1.35 .397 2.002 .677 a 14.147 14.147 0 0 1 4.45 3.001 14.112 14.112 0 0 1 3.679 6.453 .502 .502 0 0 0 .975 0 c .172 -.685 .397 -1.351 .677 -2.003 a 14.145 14.145 0 0 1 3.001 -4.45 14.113 14.113 0 0 1 6.453 -3.678 .503 .503 0 0 0 0 -.975 13.245 13.245 0 0 1 -2.003 -.678 z" fill="url(#lobe-icons-gemini-1-)"></path><path d="M 20.616 10.835 a 14.147 14.147 0 0 1 -4.45 -3.001 14.111 14.111 0 0 1 -3.678 -6.452 .503 .503 0 0 0 -.975 0 14.134 14.134 0 0 1 -3.679 6.452 14.155 14.155 0 0 1 -4.45 3.001 c -.65 .28 -1.318 .505 -2.002 .678 a .502 .502 0 0 0 0 .975 c .684 .172 1.35 .397 2.002 .677 a 14.147 14.147 0 0 1 4.45 3.001 14.112 14.112 0 0 1 3.679 6.453 .502 .502 0 0 0 .975 0 c .172 -.685 .397 -1.351 .677 -2.003 a 14.145 14.145 0 0 1 3.001 -4.45 14.113 14.113 0 0 1 6.453 -3.678 .503 .503 0 0 0 0 -.975 13.245 13.245 0 0 1 -2.003 -.678 z" fill="url(#lobe-icons-gemini-2-)"></path><defs><linearGradient gradientUnits="userSpaceOnUse" id="lobe-icons-gemini-0-" x1="7" x2="11" y1="15.5" y2="12"><stop stop-color="#08B962"></stop><stop offset="1" stop-color="#08B962" stop-opacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="lobe-icons-gemini-1-" x1="8" x2="11.5" y1="5.5" y2="11"><stop stop-color="#F94543"></stop><stop offset="1" stop-color="#F94543" stop-opacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="lobe-icons-gemini-2-" x1="3.5" x2="17.5" y1="13.5" y2="12"><stop stop-color="#FABC12"></stop><stop offset=".46" stop-color="#FABC12" stop-opacity="0"></stop></linearGradient></defs></svg><span>Gemini</span></li>
+        <li title="Grok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.27 15.29l7.978-5.897c.391-.29.95-.177 1.137.272.98 2.369.542 5.215-1.41 7.169-1.951 1.954-4.667 2.382-7.149 1.406l-2.711 1.257c3.889 2.661 8.611 2.003 11.562-.953 2.341-2.344 3.066-5.539 2.388-8.42l.006.007c-.983-4.232.242-5.924 2.75-9.383.06-.082.12-.164.179-.248l-3.301 3.305v-.01L9.267 15.292M7.623 16.723c-2.792-2.67-2.31-6.801.071-9.184 1.761-1.763 4.647-2.483 7.166-1.425l2.705-1.25a7.808 7.808 0 00-1.829-1A8.975 8.975 0 005.984 5.83c-2.533 2.536-3.33 6.436-1.962 9.764 1.022 2.487-.653 4.246-2.34 6.022-.599.63-1.199 1.259-1.682 1.925l7.62-6.815"></path></svg><span>Grok</span></li>
+        <li title="Kimi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.846 0a1.923 1.923 0 1 1 0 3.846H20.15a.226 .226 0 0 1 -.227 -.226V1.923C19.923 .861 20.784 0 21.846 0z"></path><path d="M11.065 11.199l7.257 -7.2c.137 -.136 .06 -.41 -.116 -.41H14.3a.164 .164 0 0 0 -.117 .051l-7.82 7.756c-.122 .12 -.302 .013 -.302 -.179V3.82c0 -.127 -.083 -.23 -.185 -.23H3.186c-.103 0 -.186 .103 -.186 .23V19.77c0 .128 .083 .23 .186 .23h2.69c.103 0 .186 -.102 .186 -.23v-3.25c0 -.069 .025 -.135 .069 -.178l2.424 -2.406a.158 .158 0 0 1 .205 -.023l6.484 4.772a7.677 7.677 0 0 0 3.453 1.283c.108 .012 .2 -.095 .2 -.23v-3.06c0 -.117 -.07 -.212 -.164 -.227a5.028 5.028 0 0 1 -2.027 -.807l-5.613 -4.064c-.117 -.078 -.132 -.279 -.028 -.381z"></path></svg><span>Kimi</span></li>
+        <li class="more">GLM, MiniMax, OpenCode and more</li>
+      </ul>
+    </section>
+
+    <section class="features">
+      <article class="feat">
+        <div class="ic i-cyan"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></div>
+        <h3>Every reset, counted down</h3>
+        <p>Session, weekly and monthly limits for each service, with the exact time each one resets.</p>
+      </article>
+      <article class="feat">
+        <div class="ic i-amber"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+        <h3>A forecast, not just a number</h3>
+        <p>See when you'll hit the limit at your current pace, and a daily budget that keeps the week on track.</p>
+        <div class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i class="hot"></i><i></i><i></i><i></i></div>
+      </article>
+      <article class="feat">
+        <div class="ic i-orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></div>
+        <h3>Widgets and alerts</h3>
+        <p>Home and Lock Screen widgets, a live monitor, and an alert before you run out. No analytics, no tracking.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <span>AI Limits for iPhone, iPad and Android</span>
+    <nav><a href="./">Help</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+  </footer>
 </div>
-<p class="more"><a href="./">About AI Limits</a></p>
-</main>
+
+<script>
+(function () {
+  // Gauge like the app icon: segmented arc that fills to 72%.
+  var g = document.getElementById("gauge");
+  if (g) {
+    var N = 26, start = 135, sweep = 270, used = 0.72, html = "";
+    for (var i = 0; i < N; i++) {
+      var a = (start + sweep * i / (N - 1)) * Math.PI / 180;
+      var x1 = 50 + 37 * Math.cos(a), y1 = 50 + 37 * Math.sin(a), x2 = 50 + 46 * Math.cos(a), y2 = 50 + 46 * Math.sin(a);
+      html += '<line x1="' + x1.toFixed(2) + '" y1="' + y1.toFixed(2) + '" x2="' + x2.toFixed(2) + '" y2="' + y2.toFixed(2) + '" stroke-width="5" stroke-linecap="round" stroke="rgba(255,255,255,.14)" data-i="' + i + '"/>';
+    }
+    g.innerHTML = html;
+    var segs = g.querySelectorAll("line"), pct = document.getElementById("pct");
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var color = function (i) { var f = i / (N - 1); return f < 0.5 ? "#78dbe6" : f < 0.62 ? "#ffc24a" : "#ff9b45"; };
+    var paint = function (p) {
+      var lit = Math.round(p * N);
+      for (var i = 0; i < N; i++) segs[i].setAttribute("stroke", i < lit ? color(i) : "rgba(255,255,255,.14)");
+      pct.textContent = Math.round(p * 100);
+    };
+    if (reduce) paint(used);
+    else {
+      var t0 = null, dur = 1800;
+      var step = function (t) {
+        if (t0 === null) t0 = t;
+        var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        paint(used * e);
+        if (k < 1) requestAnimationFrame(step);
+      };
+      setTimeout(function () { requestAnimationFrame(step); }, 700);
+    }
+  }
+
+  // A computer visitor gets a QR code of this same link, so the phone lands on the right store with the same tag.
+  var scan = document.querySelector(".scan");
+  if (scan && !/iPhone|iPad|iPod|Android/.test(navigator.userAgent) && window.matchMedia("(min-width: 621px)").matches) {
+    var s = document.createElement("script");
+    s.src = "get/qr.js";
+    s.onload = function () {
+      try {
+        var qr = qrcode(0, "M");
+        qr.addData(location.href.split("#")[0]);
+        qr.make();
+        scan.querySelector(".qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+        scan.hidden = false;
+      } catch (e) {}
+    };
+    document.head.appendChild(s);
+  }
+
+  // The phone group is drawn at 580px and scaled to fit its column.
+  var stageEl = document.querySelector(".stage");
+  var fit = function () { if (stageEl) stageEl.style.setProperty("--s", Math.min(1, stageEl.clientWidth / 580).toFixed(3)); };
+  fit(); window.addEventListener("resize", fit);
+
+  // Subtle tilt of the phones following the mouse.
+  var rig = document.querySelector(".rig"), stage = document.querySelector(".stage");
+  if (rig && window.matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches) {
+    var raf = 0;
+    window.addEventListener("mousemove", function (ev) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        var x = ev.clientX / innerWidth - 0.5, y = ev.clientY / innerHeight - 0.5;
+        rig.style.transform = "rotateY(" + (x * 8).toFixed(2) + "deg) rotateX(" + (-y * 6).toFixed(2) + "deg)";
+      });
+    });
+  }
+})();
+</script>
 </body>
 </html>
