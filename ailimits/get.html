@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Get AI Limits for iPhone, iPad and Android</title>
-<meta name="description" content="AI Limits shows how much of your Claude, ChatGPT, Codex, Cursor and other AI limits you've used, when each one resets, and when you'll run out. Get it on the App Store or Google Play.">
+<title>Get AI Limits for iPhone, iPad, Mac and Android</title>
+<meta name="description" content="AI Limits shows how much of your Claude, ChatGPT, Codex, Cursor and other AI limits you've used, when each one resets, and when you'll run out. Get it on the App Store or Google Play. Also on the Mac.">
 <meta name="theme-color" content="#050607">
 <meta property="og:title" content="AI Limits: see every AI limit before you hit it">
-<meta property="og:description" content="Usage, reset times and a forecast for Claude, ChatGPT, Codex, Cursor and more. iPhone, iPad and Android.">
+<meta property="og:description" content="Usage, reset times and a forecast for Claude, ChatGPT, Codex, Cursor and more. iPhone, iPad, Mac and Android.">
 <meta property="og:image" content="https://stanleyappdev.github.io/ailimits/get/icon.png">
 <link rel="icon" type="image/png" href="get/favicon.png">
 <link rel="apple-touch-icon" href="get/apple-touch-icon.png">
@@ -34,6 +34,8 @@
   if (ios) location.replace(apple);
   else if (/Android/.test(ua)) location.replace(play);
   else document.addEventListener("DOMContentLoaded", function () {
+    // AI Limits for Mac is in the same App Store record; on a Mac the button opens the Mac App Store.
+    if (/Macintosh|Mac OS X/.test(ua)) apple = apple.indexOf("mt=8") > 0 ? apple.replace("mt=8", "mt=12") : apple + "?mt=12";
     // On a computer the buttons carry the same tags.
     document.querySelectorAll('a[href^="https://apps.apple.com"]').forEach(function (a) { a.href = apple; });
     document.querySelectorAll('a[href^="https://play.google.com"]').forEach(function (a) { a.href = play; });
@@ -207,7 +209,8 @@ footer a:hover { color: var(--text); }
   .hero { grid-template-columns: 1fr; padding-top: 36px; min-height: 0; }
   .copy { text-align: center; display: flex; flex-direction: column; align-items: center; }
   .stores { justify-content: center; }
-  .get-title { justify-content: center; }
+  .get-title { justify-content: center; flex-wrap: wrap; row-gap: 2px; }
+  .get-title span { flex-basis: 100%; text-align: center; }
   .paid { text-align: left; }
   .stage { max-width: 640px; width: 100%; margin: 0 auto; }
   .works { text-align: center; }
@@ -237,12 +240,12 @@ footer a:hover { color: var(--text); }
   <main>
     <section class="hero">
       <div class="copy">
-        <span class="eyebrow in" style="--d:1"><b></b>iPhone · iPad · Android</span>
+        <span class="eyebrow in" style="--d:1"><b></b>iPhone · iPad · Mac · Android</span>
         <h1 class="in" style="--d:2">See every AI limit before you <span class="hit">hit&nbsp;it.</span></h1>
         <p class="lead in" style="--d:3">How much you've used on Claude, ChatGPT, Codex, Cursor and more, when each limit resets, and when you'll run out at your current pace. In one app, with widgets and alerts.</p>
 
         <div class="get in" id="download" style="--d:4">
-        <p class="get-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download free <span>iPhone, iPad and Android</span></p>
+        <p class="get-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download free <span>iPhone, iPad, Mac and Android</span></p>
         <div class="stores">
           <a class="badge" href="https://apps.apple.com/app/id6819589802" aria-label="Download on the App Store">
             <svg viewBox="0 0 168 56" role="img" aria-hidden="true">
@@ -339,7 +342,7 @@ footer a:hover { color: var(--text); }
   </main>
 
   <footer>
-    <span>AI Limits for iPhone, iPad and Android</span>
+    <span>AI Limits for iPhone, iPad, Mac and Android</span>
     <nav><a href="./">Help</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
   </footer>
 </div>
