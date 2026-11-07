@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metafora — бібліотека психолога</title>
+<meta name="description" content="Понад 1000 вправ, метафор, притч, ігор і робочих аркушів для психологів. 82 теми, пошук і фільтри, календар зустрічей. iPhone, iPad і Android.">
+<meta name="theme-color" content="#f7f1e1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Metafora">
+<meta property="og:title" content="Metafora — бібліотека психолога у вашій кишені">
+<meta property="og:description" content="Понад 1000 вправ, метафор, притч і робочих аркушів для сесій. iPhone, iPad і Android.">
+<meta property="og:image" content="https://stanleyappdev.github.io/metafora/get/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../get/favicon.png">
+<link rel="apple-touch-icon" href="../get/apple-touch-icon.png">
+<!-- Copy of metafora/get/index.html for Threads posts; only METAFORA_SRC differs. -->
+<script>window.METAFORA_SRC = "threads";</script>
+<script src="../get/go.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #fbf7ec;
+  --cream: #f4ecd8;
+  --text: #2f332b;
+  --text2: #687061;
+  --line: rgba(60, 70, 50, .12);
+  --card: rgba(255, 253, 246, .78);
+  --sage: #566b43;
+  --sage-soft: #e6eddb;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --serif: Lora, Georgia, "Times New Roman", serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0; min-height: 100vh; color: var(--text); background: var(--bg);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; overflow-x: hidden;
+}
+a { color: inherit; }
+
+.sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.sky i { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .7; }
+.sky .a { width: 50vw; height: 50vw; left: 48%; top: -14%; background: radial-gradient(circle, #e3ecd3, transparent 65%); animation: drift-a 24s ease-in-out infinite alternate; }
+.sky .b { width: 40vw; height: 40vw; left: 72%; top: 44%; background: radial-gradient(circle, #f6e3cf, transparent 65%); animation: drift-b 28s ease-in-out infinite alternate; }
+.sky .c { width: 36vw; height: 36vw; left: -8%; top: 52%; background: radial-gradient(circle, #e7e2f1, transparent 65%); animation: drift-c 32s ease-in-out infinite alternate; }
+@keyframes drift-a { to { transform: translate(-10vw, 8vh) scale(1.12); } }
+@keyframes drift-b { to { transform: translate(-14vw, -12vh) scale(.9); } }
+@keyframes drift-c { to { transform: translate(12vw, -16vh) scale(1.18); } }
+
+.wrap { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+.top { display: flex; align-items: center; justify-content: space-between; padding: 24px 0 0; }
+.brand { display: flex; align-items: center; gap: 12px; font-family: var(--serif); font-weight: 600; font-size: 21px; text-decoration: none; }
+.brand img { width: 40px; height: 40px; border-radius: 10px; box-shadow: 0 0 0 1px var(--line), 0 6px 18px rgba(86,107,67,.18); }
+.top nav { display: flex; gap: 22px; align-items: center; font-size: 15px; }
+.top nav a { color: var(--text2); text-decoration: none; }
+.top nav a:hover { color: var(--text); }
+
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; padding: 44px 0 40px; }
+.eyebrow { display: inline-block; padding: 6px 14px; border-radius: 999px; background: var(--sage-soft); color: var(--sage); font-size: 13.5px; font-weight: 600; }
+h1 { margin: 20px 0 16px; font-family: var(--serif); font-size: clamp(40px, 5vw, 62px); line-height: 1.08; letter-spacing: -.015em; font-weight: 500; }
+h1 em { color: var(--sage); }
+.lead { margin: 0 0 26px; max-width: 500px; font-size: 19px; color: var(--text2); }
+
+.stores { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.badge { display: block; height: 58px; border-radius: 12px; box-shadow: 0 10px 24px -10px rgba(30,35,25,.55); transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.badge svg { display: block; height: 100%; width: auto; }
+.badge:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -10px rgba(86,107,67,.6); }
+.badge:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
+.free { margin: 16px 0 0; font-size: 15px; color: var(--text2); }
+
+.scan { display: flex; align-items: center; gap: 16px; margin-top: 26px; padding: 12px 18px 12px 12px; width: fit-content; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
+.scan[hidden] { display: none; }
+.scan .qr { width: 84px; height: 84px; padding: 6px; border-radius: 10px; background: #fff; flex: none; }
+.scan .qr svg { display: block; width: 100%; height: 100%; }
+.scan p { margin: 0; font-size: 14px; color: var(--text2); line-height: 1.45; }
+.scan p strong { display: block; color: var(--text); font-size: 15px; margin-bottom: 2px; }
+
+.stage { position: relative; height: calc(620px * var(--s, 1)); }
+.fit { position: absolute; left: 50%; top: 0; width: 580px; height: 620px; margin-left: -290px; transform: scale(var(--s, 1)); transform-origin: top center; }
+.phone { position: absolute; width: 262px; aspect-ratio: 600 / 1304; border-radius: 44px; padding: 9px; background: linear-gradient(145deg, #3b3e38, #171815 40%, #2b2d28); box-shadow: 0 40px 70px -24px rgba(40,45,30,.55), 0 14px 30px -14px rgba(40,45,30,.4); }
+.phone img { display: block; width: 100%; height: 100%; border-radius: 36px; object-fit: cover; background: #fffefa; }
+.p-main { left: 50%; top: 30px; margin-left: -131px; z-index: 3; animation: float 7s ease-in-out infinite; }
+.p-left { left: 50%; top: 92px; margin-left: -282px; width: 222px; z-index: 2; transform: rotate(-8deg); animation: float-l 8s ease-in-out infinite; }
+.p-right { left: 50%; top: 100px; margin-left: 62px; width: 222px; z-index: 1; transform: rotate(7deg); animation: float-r 9s ease-in-out infinite; }
+.p-left img, .p-right img { border-radius: 31px; }
+@keyframes float { 50% { transform: translateY(-12px); } }
+@keyframes float-l { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(-7deg) translateY(10px); } }
+@keyframes float-r { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(6deg) translateY(-10px); } }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 30px 0 40px; }
+.feat { padding: 24px 24px 26px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); }
+.feat .n { font-family: var(--serif); font-size: 34px; line-height: 1; color: var(--sage); margin-bottom: 10px; }
+.feat h3 { margin: 0 0 6px; font-family: var(--serif); font-weight: 600; font-size: 20px; }
+.feat p { margin: 0; color: var(--text2); font-size: 15.5px; }
+
+footer { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: space-between; align-items: center; padding: 24px 0 40px; border-top: 1px solid var(--line); color: var(--text2); font-size: 14px; }
+footer nav { display: flex; gap: 20px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--text); }
+
+.in { opacity: 0; transform: translateY(16px); animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--d, 0) * 90ms + 60ms); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; padding-top: 32px; }
+  .copy { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .stores { justify-content: center; }
+  .stage { max-width: 640px; width: 100%; margin: 0 auto; }
+  .features { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+}
+@media (max-width: 620px) {
+  .wrap { padding: 0 16px; }
+  .top nav { display: none; }
+  .scan { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .in { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+
+<div class="wrap">
+  <header class="top in">
+    <a class="brand" href="../"><img src="../get/icon.png" alt="" width="40" height="40">Metafora</a>
+    <nav><a href="../">Підтримка</a><a href="../privacy.html">Конфіденційність</a></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="copy">
+        <span class="eyebrow in" style="--d:1">Для психологів · iPhone, iPad і Android</span>
+        <h1 class="in" style="--d:2">Влучні слова.<br><em>Нові перспективи.</em></h1>
+        <p class="lead in" style="--d:3">Бібліотека психолога у вашій кишені: понад 1000 вправ, метафор, притч, ігор і робочих аркушів у 82 темах. Знайдіть потрібне за секунди й ведіть сесію просто з телефона.</p>
+
+        <div class="stores in" id="download" style="--d:4">
+          <a class="badge" href="https://apps.apple.com/app/id6819642218" aria-label="Завантажте в App Store">
+            <svg viewBox="0 0 186 56" role="img" aria-hidden="true">
+              <rect x=".5" y=".5" width="185" height="55" rx="11.5" fill="#000" stroke="#a6a6a6"/>
+              <g transform="translate(13 11.5) scale(1.38)" fill="#fff"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.960-1.040-2.040.027-3.910 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.090 1.013 1.454 2.208 3.090 3.792 3.039 1.520-.065 2.090-.987 3.935-.987 1.831 0 2.350.987 3.960.948 1.637-.026 2.676-1.480 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.220-4.857-.026-3.040 2.480-4.494 2.597-4.559-1.429-2.090-3.623-2.324-4.390-2.376-2-.156-3.675 1.090-4.610 1.090zM15.530 3.830c.843-1.012 1.400-2.427 1.245-3.830-1.207.052-2.662.805-3.532 1.818-.780.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></g>
+              <text x="50" y="23" fill="#fff" font-family="-apple-system, 'SF Pro Text', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="500">Завантажте в</text>
+              <text x="49" y="43" fill="#fff" font-family="-apple-system, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" letter-spacing="-.4">App Store</text>
+            </svg>
+          </a>
+          <a class="badge" href="https://play.google.com/store/apps/details?id=com.metafora.app" aria-label="Доступно в Google Play">
+            <svg viewBox="0 0 189 56" role="img" aria-hidden="true">
+              <rect x=".5" y=".5" width="188" height="55" rx="11.5" fill="#000" stroke="#a6a6a6"/>
+              <g transform="translate(13 12) scale(1.33)">
+                <path fill="#00d7fe" d="M1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924z"/>
+                <path fill="#00f076" d="M13.544 10.989l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973z"/>
+                <path fill="#ff3a44" d="M13.544 13.056l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/>
+                <path fill="#ffd500" d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594z"/>
+              </g>
+              <text x="54" y="22" fill="#fff" font-family="Roboto, 'Product Sans', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="500" letter-spacing=".6">ДОСТУПНО В</text>
+              <text x="53" y="43" fill="#fff" font-family="'Product Sans', Roboto, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="500" letter-spacing="-.2">Google Play</text>
+            </svg>
+          </a>
+        </div>
+        <p class="free in" style="--d:5">Завантаження безкоштовне. Частина карток відкрита для всіх, власні картки завжди ваші.</p>
+
+        <div class="scan in" style="--d:6" hidden>
+          <div class="qr" aria-hidden="true"></div>
+          <p><strong>Ви за комп’ютером?</strong>Наведіть камеру телефона.<br>Відкриється потрібний магазин.</p>
+        </div>
+      </div>
+
+      <div class="stage in" style="--d:3" aria-hidden="true">
+        <div class="fit">
+          <div class="phone p-left"><img src="../get/calendar.webp" alt="" width="600" height="1304"></div>
+          <div class="phone p-right"><img src="../get/meeting.webp" alt="" width="600" height="1304"></div>
+          <div class="phone p-main"><img src="../get/home.webp" alt="" width="600" height="1304" fetchpriority="high"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="feat in" style="--d:7">
+        <div class="n">1000+</div>
+        <h3>Технік для практики</h3>
+        <p>Вправи, метафори, притчі, ігри, арттехніки й робочі аркуші. Від тривоги й самооцінки до дитячої психології.</p>
+      </article>
+      <article class="feat in" style="--d:8">
+        <div class="n">82</div>
+        <h3>Теми й фільтри</h3>
+        <p>Шукайте за темою, форматом, віком і підходом. У кожній картці інструкція, теги й джерело.</p>
+      </article>
+      <article class="feat in" style="--d:9">
+        <div class="n">✦</div>
+        <h3>Ваші сесії</h3>
+        <p>Календар зустрічей з нотатками й картками, власні добірки й картки. Усе працює без інтернету.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <span>Metafora для iPhone, iPad і Android</span>
+    <nav><a href="../">Підтримка</a><a href="../privacy.html">Конфіденційність</a><a href="../terms.html">Умови</a></nav>
+  </footer>
+</div>
+
+<script>
+(function () {
+  // A computer visitor gets a QR code of this same link, so the phone lands on the right store with the same tag.
+  var scan = document.querySelector(".scan");
+  if (scan && !/iPhone|iPad|iPod|Android/.test(navigator.userAgent) && window.matchMedia("(min-width: 621px)").matches) {
+    var s = document.createElement("script");
+    s.src = "../get/qr.js";
+    s.onload = function () {
+      try {
+        var qr = qrcode(0, "M");
+        qr.addData(location.href.split("#")[0]);
+        qr.make();
+        scan.querySelector(".qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+        scan.hidden = false;
+      } catch (e) {}
+    };
+    document.head.appendChild(s);
+  }
+  var stage = document.querySelector(".stage");
+  var fit = function () { if (stage) stage.style.setProperty("--s", Math.min(1, stage.clientWidth / 580).toFixed(3)); };
+  fit(); window.addEventListener("resize", fit);
+})();
+</script>
+</body>
+</html>
