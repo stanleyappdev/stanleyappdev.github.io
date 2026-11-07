@@ -89,7 +89,9 @@ h1 em { color: var(--sage); }
 .p-main { left: 50%; top: 30px; margin-left: -131px; z-index: 3; animation: float 7s ease-in-out infinite; }
 .p-left { left: 50%; top: 92px; margin-left: -282px; width: 222px; z-index: 2; transform: rotate(-8deg); animation: float-l 8s ease-in-out infinite; }
 .p-right { left: 50%; top: 100px; margin-left: 62px; width: 222px; z-index: 1; transform: rotate(7deg); animation: float-r 9s ease-in-out infinite; }
-.p-left img, .p-right img { border-radius: 31px; }
+.p-left, .p-right { border-radius: 38px; padding: 8px; }
+.p-left img, .p-right img { border-radius: 30px; }
+.phone { -webkit-backface-visibility: hidden; backface-visibility: hidden; outline: 1px solid transparent; }
 @keyframes float { 50% { transform: translateY(-12px); } }
 @keyframes float-l { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(-7deg) translateY(10px); } }
 @keyframes float-r { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(6deg) translateY(-10px); } }
@@ -175,8 +177,8 @@ footer a:hover { color: var(--text); }
 
       <div class="stage in" style="--d:3" aria-hidden="true">
         <div class="fit">
-          <div class="phone p-left"><img src="../get/calendar.webp" alt="" width="600" height="1304"></div>
-          <div class="phone p-right"><img src="../get/meeting.webp" alt="" width="600" height="1304"></div>
+          <div class="phone p-left"><img src="../get/library.webp" alt="" width="600" height="1304"></div>
+          <div class="phone p-right"><img src="../get/calendar.webp" alt="" width="600" height="1304"></div>
           <div class="phone p-main"><img src="../get/home.webp" alt="" width="600" height="1304" fetchpriority="high"></div>
         </div>
       </div>
