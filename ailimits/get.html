@@ -144,6 +144,7 @@ h1 .hit { background: linear-gradient(92deg, var(--cyan) 0%, var(--amber) 55%, v
 .rig { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .6s var(--ease); }
 .phone { position: absolute; width: 262px; aspect-ratio: 600 / 1304; border-radius: 44px; padding: 9px; background: linear-gradient(145deg, #3a3d43, #121316 40%, #26282d); box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 40px 80px -20px rgba(0,0,0,.85), 0 18px 40px -18px rgba(0,0,0,.7); }
 .phone img { display: block; width: 100%; height: 100%; border-radius: 36px; object-fit: cover; background: #000; }
+.phone::before { content: ""; position: absolute; z-index: 1; top: calc(9px + 1.3%); left: 50%; width: 31%; aspect-ratio: 125 / 37; transform: translateX(-50%); border-radius: 999px; background: #000; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
 .phone::after { content: ""; position: absolute; inset: 9px; border-radius: 36px; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,.10), transparent 32%); }
 .p-main { left: 50%; top: 40px; margin-left: -131px; z-index: 3; animation: float 7s ease-in-out infinite; }
 .p-left { left: 50%; top: 96px; margin-left: -282px; width: 222px; border-radius: 40px; z-index: 2; transform: rotate(-9deg); opacity: .92; animation: float-l 8s ease-in-out infinite; }
