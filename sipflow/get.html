@@ -174,9 +174,9 @@ h1 .hit::after { content: ""; position: absolute; left: 2%; right: 2%; bottom: .
 
 /* Try-a-sip toy */
 .toy { display: flex; align-items: center; gap: 16px; margin-top: 18px; }
-.toy svg { width: 76px; height: 88px; flex: none; overflow: visible; }
-.toy .water { transition: transform .6s var(--ease); }
-.toy .face { transition: transform .3s var(--ease); }
+.toy svg { width: 104px; height: 100px; flex: none; overflow: visible; transform-origin: 50% 90%; }
+.toy svg.squish { animation: squish .45s var(--ease); }
+@keyframes squish { 30% { transform: scale(1.08, .9); } 60% { transform: scale(.96, 1.05); } }
 .toy button { font: 900 16px/1 var(--round); color: #fff; background: var(--blue-deep); border: 0; border-radius: 999px; padding: 12px 18px; cursor: pointer; box-shadow: 0 10px 22px -10px rgba(30,134,194,.9); transition: transform .15s var(--ease), background .2s; }
 .toy button:hover { background: #1873a8; }
 .toy button:active { transform: scale(.94); }
@@ -365,17 +365,22 @@ footer a:hover { color: var(--ink); }
           <h3>One tap. One sip.</h3>
           <p>Tap after a sip and Bulu fills up. Try it:</p>
           <div class="toy">
-            <svg viewBox="0 0 100 116" aria-hidden="true">
-              <defs><clipPath id="dropclip"><path d="M50 4C37 26 8 46 8 74a42 40 0 0 0 84 0C92 46 63 26 50 4Z"/></clipPath>
-              <linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A8EEF4"/><stop offset="1" stop-color="#1E86C2"/></linearGradient></defs>
-              <path d="M50 4C37 26 8 46 8 74a42 40 0 0 0 84 0C92 46 63 26 50 4Z" fill="#EAF7FB"/>
-              <g clip-path="url(#dropclip)"><rect class="water" id="water" x="0" y="0" width="100" height="120" fill="url(#wg)" style="transform: translateY(100px)"/></g>
-              <path d="M50 4C37 26 8 46 8 74a42 40 0 0 0 84 0C92 46 63 26 50 4Z" fill="none" stroke="#2380A8" stroke-width="3.5"/>
-              <ellipse cx="30" cy="62" rx="5" ry="10" fill="#fff" opacity=".55"/>
-              <g class="face" id="face" fill="none" stroke="#193B53" stroke-width="3.4" stroke-linecap="round">
-                <path id="eyeL" d="M36 74q4-5 8 0"/><path id="eyeR" d="M56 74q4-5 8 0"/><path d="M44 84q6 6 12 0"/>
+            <svg id="toy" viewBox="-1.25 -1.15 2.5 2.4" aria-hidden="true">
+              <defs>
+                <clipPath id="dropclip"><path d="M.28 -1.05C.26 -.68 1.1 -.35 .98 .29C.86 1.09 -.73 1.13 -.95 .39C-1.18 -.33 -.35 -.69 .28 -1.05Z"/></clipPath>
+                <linearGradient id="bodyg" gradientUnits="userSpaceOnUse" x1="-1" y1="-1" x2="1" y2="1"><stop offset="0" stop-color="#B5F3F6"/><stop offset=".333" stop-color="#60CBE4"/><stop offset=".667" stop-color="#2EA4D0"/><stop offset="1" stop-color="#81DCEF"/></linearGradient>
+                <linearGradient id="waterg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ACF9F7" stop-opacity=".58"/><stop offset="1" stop-color="#087CBA" stop-opacity=".72"/></linearGradient>
+              </defs>
+              <path d="M.28 -1.05C.26 -.68 1.1 -.35 .98 .29C.86 1.09 -.73 1.13 -.95 .39C-1.18 -.33 -.35 -.69 .28 -1.05Z" fill="url(#bodyg)"/>
+              <g clip-path="url(#dropclip)">
+                <g id="water"><rect x="-1.3" y=".95" width="2.6" height=".1" fill="url(#waterg)"/><rect x="-1.3" y=".95" width="2.6" height=".1" fill="url(#waterg)"/><rect x="-1.3" y=".95" width="2.6" height=".1" fill="url(#waterg)"/></g>
+                <ellipse cx="-.48" cy="-.30" rx=".12" ry=".25" fill="#fff" fill-opacity=".45"/>
               </g>
-              <ellipse cx="33" cy="82" rx="5" ry="2.6" fill="#E9A6BF"/><ellipse cx="67" cy="82" rx="5" ry="2.6" fill="#E9A6BF"/>
+              <path d="M.28 -1.05C.26 -.68 1.1 -.35 .98 .29C.86 1.09 -.73 1.13 -.95 .39C-1.18 -.33 -.35 -.69 .28 -1.05Z" fill="none" stroke="#217FA9" stroke-width=".035" stroke-linejoin="round"/>
+              <g id="eyesHappy" fill="#193B53"><ellipse cx="-.2" cy=".035" rx=".045" ry=".065"/><ellipse cx=".2" cy=".035" rx=".045" ry=".065"/></g>
+              <g id="eyesJoy" fill="none" stroke="#193B53" stroke-width=".035" stroke-linecap="round" style="display:none"><path d="M-.25 .04Q-.2 -.05 -.15 .04"/><path d="M.15 .04Q.2 -.05 .25 .04"/></g>
+              <path id="mouth" d="M-.08 .17Q0 .26 .08 .17" fill="none" stroke="#193B53" stroke-width=".03" stroke-linecap="round"/>
+              <ellipse cx="-.33" cy=".195" rx=".08" ry=".035" fill="#FFABC0" fill-opacity=".8"/><ellipse cx=".33" cy=".195" rx=".08" ry=".035" fill="#FFABC0" fill-opacity=".8"/>
             </svg>
             <div><button type="button" id="sip">Tap a sip</button><span class="count" id="sipcount">0 / 8 sips today</span></div>
           </div>
@@ -463,12 +468,31 @@ footer a:hover { color: var(--ink); }
 
   // Try-a-sip toy: each tap adds a sip and the droplet fills up.
   var sips = 0, water = document.getElementById("water"), btn = document.getElementById("sip"), count = document.getElementById("sipcount");
+  var toy = document.getElementById("toy"), joyT = 0;
+  var face = function (joy) {
+    document.getElementById("eyesHappy").style.display = joy ? "none" : "";
+    document.getElementById("eyesJoy").style.display = joy ? "" : "none";
+    document.getElementById("mouth").setAttribute("d", joy ? "M-.08 .17Q0 .31 .08 .17" : "M-.08 .17Q0 .26 .08 .17");
+  };
+  // Water rect runs from its top to the bottom of the drop (y = 1.0), with the gradient over that span, as in the app.
+  var rects = water.querySelectorAll("rect"), wy = 0.95, wraf = 0;
+  var setY = function (y) { rects.forEach(function (r) { r.setAttribute("y", y.toFixed(4)); r.setAttribute("height", (1.05 - y).toFixed(4)); }); };
+  var level = function (to) {
+    var from = wy, t0 = null; cancelAnimationFrame(wraf);
+    if (!motion) { wy = to; setY(to); return; }
+    (function tick(t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 600), e = 1 - Math.pow(1 - k, 3); wy = from + (to - from) * e; setY(wy); if (k < 1) wraf = requestAnimationFrame(tick); })(performance.now());
+  };
+  setY(wy);
   btn.addEventListener("click", function () {
-    sips = sips >= 8 ? 1 : sips + 1;
-    water.style.transform = "translateY(" + (100 - sips * 11.5) + "px)";
+    sips = sips >= 8 ? 0 : sips + 1;
+    // Same water level math as the app: top of the water at 0.95 - 2 * fill.
+    level(0.95 - 2 * (sips / 8));
     count.textContent = sips >= 8 ? "Goal reached! Bulu is happy" : sips + " / 8 sips today";
     btn.textContent = sips >= 8 ? "Start again" : "Tap a sip";
-    var p = document.createElement("span"); p.className = "pop"; p.textContent = "+1 sip";
+    toy.classList.remove("squish"); void toy.getBBox(); toy.classList.add("squish");
+    face(true); clearTimeout(joyT);
+    if (sips < 8) joyT = setTimeout(function () { face(false); }, 900);
+    var p = document.createElement("span"); p.className = "pop"; p.textContent = sips ? "+1 sip" : "";
     var r = btn.getBoundingClientRect(), host = btn.closest(".feat"), hr = host.getBoundingClientRect();
     p.style.left = (r.left - hr.left + r.width / 2 - 24) + "px"; p.style.top = (r.top - hr.top - 8) + "px";
     host.appendChild(p); setTimeout(function () { p.remove(); }, 1000);
